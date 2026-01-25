@@ -1,30 +1,29 @@
-/* ===== Сброс стилей ===== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+.form-add {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 15px;
 }
-ul,
-ol {
-  list-style: none;
+.form-add__input {
+  width: 100%;
+  padding: 12px 20px;
+  font-size: 14px;
+  border: 1px solid rgba(30, 10, 60, 0.12);
+  border-radius: 8px;
+  background-color: #ffffff;
 }
-a {
-  text-decoration: none;
-  color: inherit;
+
+.form-add__input::placeholder {
+  color: #9b96a6;
 }
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-button {
-  border: none;
-  background-color: transparent;
-}
-body {
-  font-family: "Open Sans", sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-  background-color: #1d2f30;
-  color: white;
+
+.form-add__button {
+  padding: 12px 45px;
+  border-radius: 8px;
+  border: 1px solid rgba(30, 10, 60, 0.12);
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #7e66cd;
+  cursor: pointer;
 }
