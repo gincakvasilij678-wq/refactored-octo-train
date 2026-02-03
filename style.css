@@ -104,9 +104,26 @@
   font-weight: 500;
   color: #5e5472;
   cursor: pointer;
+  transition: background .2s, color .2s, border-color .2s;
 }
+.tabs__item:hover {
+    background: #f6f4ff;
+    border-color: rgba(30, 10, 60, 0.2);
+    color: #735cc6;
+}
+.tabs__item:active {
+    background: #e9e5f9;
+    border-color: #735cc6;
+    color: #5d47aa;
+}
+
 .tabs__item--active {
   background: #efeaff;
   border-color: #cfc6f5;
   color: #734cc6;
+}
+.page-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 28px 0 20px;
 }
