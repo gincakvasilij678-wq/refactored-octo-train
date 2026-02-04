@@ -153,13 +153,13 @@
     border-radius: 8px;            
     background-color: #ffffff; 
 }
-.toolbar__search ::placeholder {
+.toolbar__search::placeholder {
 color: #9b96a6; 
 }
-.toolbar__search :hover {
+.toolbar__search:hover {
   border-color:rgba(30, 10, 60, 0.2)
 }
-.toolbar__search :active {
+.toolbar__search:focus-visible {
   outline: none;
   border: #7e66cd;
   box-shadow: 0 0 0 3px rgba(126, 102, 205, 0.28);

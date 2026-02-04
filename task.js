@@ -70,3 +70,17 @@ function taskSummary(total,done) {
     );
 }
 console.log (taskSummary(8,3));
+
+
+
+let amount = 67;
+
+if (amount === 0) {
+    console.log("Корзина пуста");
+} else if (amount < 1000) {
+    console.log("Скидка не применяется");
+} else if (amount >= 1000 && amount <= 5000) {
+    console.log("Скидка 5%");
+} else if (amount >= 5000) {
+    console.log('Скидка 10%');
+}
