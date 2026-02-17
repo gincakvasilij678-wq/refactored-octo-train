@@ -232,3 +232,36 @@ color: #9b96a6;
   color: #6f6781;              
   margin-left: 5px;             
 }
+
+.button--clear {
+  padding: 6px 12px;
+  font-size: 13px;
+  background-color: transparent;
+  border-radius: 8px;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border 0.2s;
+  color: #735cc6;
+  border: 1px dashed #a28bdc;
+  outline: none;
+}
+
+.button--clear:hover {
+  background-color: #f6f4ff;
+  color: #735cc6;
+  border-style: solid;
+  border-color: #735cc6;
+}
+
+.button--clear:active {
+  background-color: #e9e5f9;
+  border-color: #5d47aa;
+  color: #5d47aa;
+}
+
+.button--clear:disabled {
+  color: #8e8b99;
+  border-color: #c8c5cf;
+  background-color: #f1f1f3;
+  cursor: not-allowed;
+}
