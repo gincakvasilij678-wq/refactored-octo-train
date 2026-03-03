@@ -29,7 +29,7 @@ function renderTask(task) {
   actions.classList.add("task__actions");
 
   const deleteBtn = document.createElement("button");
-  deleteBtn.classList.add("task__action", "task__action--edit");
+  deleteBtn.classList.add("task__action", "task__action--delete");
   deleteBtn.innerHTML = `<svg
               class="task__icon"
               viewBox="0 0 24 24"
@@ -62,8 +62,6 @@ function renderTask(task) {
     tasks.splice(index, 1);
 
     renderAll();
-
-    
   });
 
   actions.append(editBtn, deleteBtn);
@@ -97,14 +95,17 @@ function renderTask(task) {
 // container.append(task1, task2)
 
 const tasks = [
-  { text: "Прочитать книгу", date: "Завтра 17:00", done: true },
-  { text: "Погулять с собакой", date: "Завтра 17:00", done: false },
+  { text: "Прочитать книгу", date: "Завтра 17:00", done: false },
+  { text: "Сделать уроки", date: "Вчера 18:30", done: true },
+  { text: "Погулять с собакой", date: "Сегодня 18:00", done: false },
+  { text: "Купить молоко", date: "Сегодня 12:00", done: true },
+  { text: "Посмотреть фильм", date: "Завтра 17:00", done: false },
+  
+  
 ];
 
 function renderAll() {
-   container.innerHTML = ""; 
-console.log( document.querySelectorAll(".task"))
- /*  document.querySelectorAll(".task").forEach(t => t.remove); */
+  document.querySelectorAll(".task").forEach((t) => t.remove());
   tasks.forEach((task) => {
     const card = renderTask(task);
     footer.before(card);
