@@ -6,6 +6,9 @@ const searchInput = document.querySelector(".toolbar__search");
 const footer = document.querySelector(".footer-controls");
 const sortSelect = document.querySelector(".toolbar__sort");
 
+const tabButtons = document.querySelectorAll(".tabs__item");
+const clearButton = document.querySelector(".footer-controls__clear");
+
 function renderTask(task) {
   /* container.innertaskL = "";
 
@@ -62,6 +65,18 @@ function renderTask(task) {
     tasks.splice(index, 1);
 
     renderAll();
+
+    
+    
+});
+
+editBtn.addEventListener('click', () => {
+  const newText = prompt('Изменить задачу:', task.text);
+  if (newText && newText.trim() !== '') {
+    task.text = newText.trim();
+    renderAll();
+  }
+
   });
 
   actions.append(editBtn, deleteBtn);
@@ -77,6 +92,8 @@ function renderTask(task) {
     task.done = !task.done;
     renderAll();
   });
+
+  
 
   return item;
   /* container.append(item);
