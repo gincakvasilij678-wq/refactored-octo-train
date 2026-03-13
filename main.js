@@ -10,28 +10,39 @@ const tabButtons = document.querySelectorAll(".tabs__item");
 const clearButton = document.querySelector(".footer-controls__clear");
 const form = document.querySelector(".form-add");
 
-let tasks = []
+let tasks = [];
 
-let sortOrder = 'new';
+let sortOrder = "new";
+let currentFilter = "all";
 
-  form.addEventListener ("submit", (event) => {
-  event.preventDefault()
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
 
-  addTask()
+  addTask();
+});
 
-  })
+searchInput.addEventListener("input", renderAll);
 
-sortSelect.addEventListener('change', () => {
+tabButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    tabButtons.forEach((b) => b.classList.remove("tabs__item--active"));
+
+    btn.classList.add("tabs__item--active");
+
+    if (btn.textContent.includes("Активные")) currentFilter = "active";
+    else if (btn.textContent.includes("Завер")) currentFilter = "done";
+    else currentFilter = "all";
+  });
+});
+sortSelect.addEventListener("change", () => {
   const val = sortSelect.value;
-  if (val.includes('новые')) sortOrder = 'new';
-  else if (val.includes('старые')) sortOrder = 'old';
-  else if (val.includes('A→Z')) sortOrder = 'az';
-  else if (val.includes('Z→A')) sortOrder = 'za';
+  if (val.includes("новые")) sortOrder = "new";
+  else if (val.includes("старые")) sortOrder = "old";
+  else if (val.includes("A→Z")) sortOrder = "az";
+  else if (val.includes("Z→A")) sortOrder = "za";
 
   renderAll();
 });
-
-
 
 function addTask() {
   const text = input.value.trim();
@@ -48,19 +59,16 @@ function addTask() {
     text: text,
     done: false,
     date: formattedDate(new Date()),
-  }
+  };
 
-  tasks.push(newTask)
+  tasks.push(newTask);
 
+  input.value = "";
 
-
-    renderAll()
-};
-
-
+  renderAll();
+}
 
 function renderTask(task) {
-  
   const item = document.createElement("div");
   item.classList.add("task");
 
@@ -113,18 +121,14 @@ function renderTask(task) {
     tasks.splice(index, 1);
 
     renderAll();
+  });
 
-    
-    
-});
-
-editBtn.addEventListener('click', () => {
-  const newText = prompt('Изменить задачу:', task.text);
-  if (newText && newText.trim() !== '') {
-    task.text = newText.trim();
-    renderAll();
-  }
-
+  editBtn.addEventListener("click", () => {
+    const newText = prompt("Изменить задачу:", task.text);
+    if (newText && newText.trim() !== "") {
+      task.text = newText.trim();
+      renderAll();
+    }
   });
 
   actions.append(editBtn, deleteBtn);
@@ -140,9 +144,6 @@ editBtn.addEventListener('click', () => {
     task.done = !task.done;
     renderAll();
   });
-
-  
-
   return item;
   /* container.append(item);
   }); */
@@ -172,26 +173,39 @@ editBtn.addEventListener('click', () => {
 function renderAll() {
   document.querySelectorAll(".task").forEach((t) => t.remove());
 
-  const sortedTasks = [...tasks].sort((a, b) => {
-   if (sortOrder === 'new') return b.id - a.id;
-    if (sortOrder === 'old') return a.id - b.id;
-    if (sortOrder === 'az') return a.text > b.text ? 1 : -1;
-    if (sortOrder === 'za') return a.text < b.text ? 1 : -1;
+  let filtered = tasks.filter((task) => {
+    if (currentFilter === "active") return !task.done;
+    if (currentFilter === "done") return task.done;
+
+    return true;
   });
 
+  const query = searchInput.value.trim().toLowerCase();
+
+  if (query) {
+    filtered = filtered.filter((task) =>
+      task.text.toLowerCase().includes(query),
+    );
+  }
+  const sortedTasks = [...filtered].sort((a, b) => {
+    if (sortOrder === "new") return b.id - a.id;
+    if (sortOrder === "old") return a.id - b.id;
+    if (sortOrder === "az") return a.text > b.text ? 1 : -1;
+    if (sortOrder === "za") return a.text < b.text ? 1 : -1;
+  });
 
   sortedTasks.forEach((task) => {
     const card = renderTask(task);
     footer.before(card);
   });
 }
-  function formattedDate(date) {
-    const day = date.getDate().toString().padStart(2, "0")
-const month = (date.getMonth() + 1).toString().padStart(2, "0")
-const year = date.getFullYear()
-const hours = date.getHours().toString().padStart(2, "0")
-const minutes = date.getMinutes().toString().padStart(2, "0")
+function formattedDate(date) {
+  const day = date.getDate().toString().padStart(2, "0");
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const year = date.getFullYear();
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
 
-return  `${day}.${month}.${year}, ${hours}:${minutes}`
-  }
+  return `${day}.${month}.${year}, ${hours}:${minutes}`;
+}
 renderAll();
