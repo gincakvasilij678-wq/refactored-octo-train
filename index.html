@@ -13,22 +13,22 @@
         <h2 class="title">Tasktitle</h2>
 
         <nav class="tabs">
-<a href="index.html" class="tab active">To Do</a>
+          <a href="index.html" class="tab active">To Do</a>
         </nav>
       </div>
     </header>
 
     <main class="container">
-      <h1 class="page--title">Задачи</h1>
+      <h1 class="title">Задачи</h1>
 
-      <div class="form-add">
+      <form class="form-add">
         <input
           class="form-add__input"
           type="text"
           placeholder="Введите задачу"
         />
-        <button class="form-add__button" type="button">Добавить</button>
-      </div>
+        <button class="form-add__button" type="submit">Добавить</button>
+      </form>
       <div class="toolbar">
         <input class="toolbar__search" type="text" placeholder="Поиск задач…" />
         <div class="tabs toolbar__tabs">
@@ -39,14 +39,14 @@
           <button class="tabs__item" type="button">Завершённые</button>
         </div>
         <select class="toolbar__sort">
-          <option selected>Сначала старые</option>
           <option>Сначала новые</option>
+          <option>Сначала старые</option>
+          <option>Название A→Z</option>
+          <option>Название Z→A</option>
         </select>
       </div>
-      <div class="tasks">
-
-      </div>
-       <!-- <div class="task">
+      <div class="tasks"></div>
+      <!-- <div class="task">
         <div class="task__content">
           <div class="task__title">Пример задачи</div>
           <div class="task__meta">26.09.2025, 15:49</div>
@@ -91,7 +91,7 @@
           </button>
         </div>
       </div>  -->
-       <div class="footer-controls">
+      <div class="footer-controls">
         <div class="footer-controls__counters">
           <span>Всего: 1</span>
           <span>Активных: 1</span>
@@ -103,9 +103,9 @@
         >
           Очистить выполненные
         </button>
-      </div> 
+      </div>
     </main>
-    <!-- <script src="./task.js"></script> -->
+    <!--  <script src="./task.js"></script> -->
     <script src="./main.js"></script>
   </body>
 </html>

@@ -8,11 +8,59 @@ const sortSelect = document.querySelector(".toolbar__sort");
 
 const tabButtons = document.querySelectorAll(".tabs__item");
 const clearButton = document.querySelector(".footer-controls__clear");
+const form = document.querySelector(".form-add");
+
+let tasks = []
+
+let sortOrder = 'new';
+
+  form.addEventListener ("submit", (event) => {
+  event.preventDefault()
+
+  addTask()
+
+  })
+
+sortSelect.addEventListener('change', () => {
+  const val = sortSelect.value;
+  if (val.includes('новые')) sortOrder = 'new';
+  else if (val.includes('старые')) sortOrder = 'old';
+  else if (val.includes('A→Z')) sortOrder = 'az';
+  else if (val.includes('Z→A')) sortOrder = 'za';
+
+  renderAll();
+});
+
+
+
+function addTask() {
+  const text = input.value.trim();
+
+  if (text === "" || text.length < 3) {
+    input.classList.add("input--error");
+    return;
+  }
+
+  input.classList.remove("input--error");
+
+  const newTask = {
+    id: Date.now(),
+    text: text,
+    done: false,
+    date: formattedDate(new Date()),
+  }
+
+  tasks.push(newTask)
+
+
+
+    renderAll()
+};
+
+
 
 function renderTask(task) {
-  /* container.innertaskL = "";
-
-  tasks.forEach((task) => { */
+  
   const item = document.createElement("div");
   item.classList.add("task");
 
@@ -111,7 +159,7 @@ editBtn.addEventListener('click', () => {
 
 // container.append(task1, task2)
 
-const tasks = [
+/* const tasks = [
   { text: "Прочитать книгу", date: "Завтра 17:00", done: false },
   { text: "Сделать уроки", date: "Вчера 18:30", done: true },
   { text: "Погулять с собакой", date: "Сегодня 18:00", done: false },
@@ -119,14 +167,31 @@ const tasks = [
   { text: "Посмотреть фильм", date: "Завтра 17:00", done: false },
   
   
-];
+]; */
 
 function renderAll() {
   document.querySelectorAll(".task").forEach((t) => t.remove());
-  tasks.forEach((task) => {
+
+  const sortedTasks = [...tasks].sort((a, b) => {
+   if (sortOrder === 'new') return b.id - a.id;
+    if (sortOrder === 'old') return a.id - b.id;
+    if (sortOrder === 'az') return a.text > b.text ? 1 : -1;
+    if (sortOrder === 'za') return a.text < b.text ? 1 : -1;
+  });
+
+
+  sortedTasks.forEach((task) => {
     const card = renderTask(task);
     footer.before(card);
   });
 }
+  function formattedDate(date) {
+    const day = date.getDate().toString().padStart(2, "0")
+const month = (date.getMonth() + 1).toString().padStart(2, "0")
+const year = date.getFullYear()
+const hours = date.getHours().toString().padStart(2, "0")
+const minutes = date.getMinutes().toString().padStart(2, "0")
 
+return  `${day}.${month}.${year}, ${hours}:${minutes}`
+  }
 renderAll();

@@ -277,3 +277,54 @@ function findTaskByKeyword(tasks, keyword) {
 }
 
 console.log(findTaskByKeyword(tasks, "ф"));
+
+
+
+const now = new Date();
+console.log(now)
+
+const day = now.getDate()
+const month = now.getMonth() + 1
+const year = now.getFullYear()
+
+console.log(`${day}.${month}.${year}`)
+
+const hours = now.getHours();
+const minutes = now.getMinutes();
+const seconds = now.getSeconds();
+console.log(`${hours}:${minutes}:${seconds}`);
+
+console.log(now.toLocaleString());
+
+
+
+
+const days = [
+  "Воскресенье",
+  "Понедельник",
+  "Вторник",
+  "Среда",
+  "Четверг",
+  "Пятница",
+  "Суббота"
+];
+
+const dayName = days[now.getDay()];
+console.log(dayName)
+
+
+
+let timeOfDay;
+
+if (hours >= 0 && hours < 6) {
+  timeOfDay = "Ночь";
+} else if (hours < 12) {
+  timeOfDay = "Утро";
+} else if (hours < 18) {
+  timeOfDay = "День";
+} else {
+  timeOfDay = "Вечер";
+}
+
+console.log(`Сегодня ${dayName}, сейчас ${timeOfDay}`);
+
