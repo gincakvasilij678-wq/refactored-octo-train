@@ -1,4 +1,4 @@
-let a = 5;
+/* let a = 5;
 let b = 2;
 
 let sum = a + b;
@@ -326,5 +326,20 @@ if (hours >= 0 && hours < 6) {
   timeOfDay = "Вечер";
 }
 
-console.log(`Сегодня ${dayName}, сейчас ${timeOfDay}`);
+console.log(`Сегодня ${dayName}, сейчас ${timeOfDay}`); */
 
+
+const tasks = [
+  { id: 1, text: 'Обсудить детали нового проекта на встрече' },
+  { id: 2, text: 'Проверить отчёты за прошлый квартал' },
+  { id: 3, text: 'Подготовить презентацию для проекта X' },
+  { id: 4, text: 'Обновить документацию по API' },
+  { id: 5, text: 'Согласовать бюджет проекта с руководством' },
+  { id: 6, text: 'Отправить email коллегам' }
+];
+
+const filteredTasks = tasks.filter(task =>
+  task.text.toLowerCase().includes('проект')
+);
+
+console.log(filteredTasks);

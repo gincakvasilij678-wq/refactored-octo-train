@@ -32,6 +32,8 @@ tabButtons.forEach((btn) => {
     if (btn.textContent.includes("Активные")) currentFilter = "active";
     else if (btn.textContent.includes("Завер")) currentFilter = "done";
     else currentFilter = "all";
+
+    renderAll();
   });
 });
 sortSelect.addEventListener("change", () => {
