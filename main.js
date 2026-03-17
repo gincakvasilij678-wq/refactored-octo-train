@@ -10,7 +10,8 @@ const tabButtons = document.querySelectorAll(".tabs__item");
 const clearButton = document.querySelector(".footer-controls__clear");
 const form = document.querySelector(".form-add");
 
-let tasks = [];
+/* let localTasks = localStorage.getItem('tasks') */
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
 let sortOrder = "new";
 let currentFilter = "all";
@@ -67,6 +68,8 @@ function addTask() {
 
   input.value = "";
 
+  saveTasks();
+
   renderAll();
 }
 
@@ -121,7 +124,7 @@ function renderTask(task) {
   deleteBtn.addEventListener("click", () => {
     const index = tasks.indexOf(task);
     tasks.splice(index, 1);
-
+    saveTasks();
     renderAll();
   });
 
@@ -129,6 +132,8 @@ function renderTask(task) {
     const newText = prompt("Изменить задачу:", task.text);
     if (newText && newText.trim() !== "") {
       task.text = newText.trim();
+
+      saveTasks();
       renderAll();
     }
   });
@@ -144,6 +149,8 @@ function renderTask(task) {
     console.log(event.target);
     if (event.target.closest(".task__action")) return;
     task.done = !task.done;
+
+    saveTasks();
     renderAll();
   });
   return item;
@@ -200,6 +207,11 @@ function renderAll() {
     const card = renderTask(task);
     footer.before(card);
   });
+  updateCounterers();
+}
+
+function saveTasks() {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 function formattedDate(date) {
   const day = date.getDate().toString().padStart(2, "0");
@@ -209,5 +221,22 @@ function formattedDate(date) {
   const minutes = date.getMinutes().toString().padStart(2, "0");
 
   return `${day}.${month}.${year}, ${hours}:${minutes}`;
+}
+
+function updateCounterers() {
+  const total = tasks.length;
+  const active = tasks.filter((t) => !t.done).length;
+  const done = tasks.filter((t) => t.done).length;
+
+  clearBtn.disabled = tasks.every((t) => !t.done);
+
+  const counters = document.querySelector(".footer-controls__counters");
+  if (counters) {
+    counters.innerHTML = `
+  <span> Всего: ${total} </span>
+  <span> Активных: ${active} </span>
+  <span> Выполненых: ${done} </span>
+  `;
+  }
 }
 renderAll();
