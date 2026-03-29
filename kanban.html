@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body class="kanban">
+    <header class="header">
+      <div class="container header__container">
+        <h2 class="title">Tasktitle</h2>
+
+        <nav class="tabs">
+          <a href="kanban.html" class="tab active">Kanban</a>
+          <a href="index.html" class="tab active">To Do</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="kanban container">
+      <h1 class="kanban__title">Kanban</h1>
+      <div class="board">
+        <div class="column" data-status="todo">
+          <div class="column__header">
+            <h2 class="column__title">To Do</h2>
+            <span class="column__count">0</span>
+          </div>
+
+          <div class="column__tasks">
+            <div class="column__task task-kanban">
+              <h3 class="task-kanban__title">Сделать уроки</h3>
+              <p class="task-kanban__descr">
+                Математика,Русский язык,География
+              </p>
+              <div class="task-kanban__foter">
+                <span class="task-kanban__priority">Средний приоритет</span>
+                <span class="task-kanban__deadline">12.03</span>
+              </div>
+            </div>
+
+            <div class="column__task task-kanban">
+              <h3 class="task-kanban__title">Сверстать главную страницу</h3>
+              <p class="task-kanban__descr">
+                Создать адаптивную сетку и добавить стили для хедера и кнопок.
+              </p>
+              <div class="task-kanban__foter">
+                <span class="task-kanban__priority">Средний приоритет</span>
+                <span class="task-kanban__deadline">до 15.11</span>
+              </div>
+            </div>
+          </div>
+
+          <button class="column__btn">+ Добавить задачу</button>
+        </div>
+
+        <div class="column" data-status="in-progress">
+          <div class="column__header">
+            <h2 class="column__title">In Progress</h2>
+            <span class="column__count">0</span>
+          </div>
+
+          <div class="column__tasks">
+            <div class="column__task task-kanban">
+              <h3 class="task-kanban__title">Разработать API авторизации</h3>
+              <p class="task-kanban__descr">
+                Реализовать JWT-токены, refresh/access, роуты для login/register
+              </p>
+              <div class="task-kanban__foter">
+                <span class="task-kanban__priority">Высокий приоритет</span>
+                <span class="task-kanban__deadline">15.03</span>
+              </div>
+            </div>
+          </div>
+
+          <button class="column__btn">+ Добавить задачу</button>
+        </div>
+
+        <div class="column" data-status="done">
+          <div class="column__header">
+            <h2 class="column__title">Done</h2>
+            <span class="column__count">0</span>
+          </div>
+
+          <div class="column__tasks">
+            <div class="column__task task-kanban">
+              <h3 class="task-kanban__title">Исправить баг с кэшем</h3>
+              <p class="task-kanban__descr">
+                Пользователи видят устаревшие данные после обновления страницы
+              </p>
+              <div class="task-kanban__foter">
+                <span class="task-kanban__priority">Высокий приоритет</span>
+                <span class="task-kanban__deadline">18.03</span>
+              </div>
+            </div>
+          </div>
+
+          <button class="column__btn">+ Добавить задачу</button>
+        </div>
+      </div>
+    </main>
+    <script src="./kanban.js"></script>
+  </body>
+</html>

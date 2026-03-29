@@ -7,11 +7,11 @@ const footer = document.querySelector(".footer-controls");
 const sortSelect = document.querySelector(".toolbar__sort");
 
 const tabButtons = document.querySelectorAll(".tabs__item");
-const clearButton = document.querySelector(".footer-controls__clear");
+const clearBtn = document.querySelector(".footer-controls__clear");
 const form = document.querySelector(".form-add");
 
 /* let localTasks = localStorage.getItem('tasks') */
-let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+let tasks = JSON.parse(localStorage.getItem("tasks")) || {};
 
 let sortOrder = "new";
 let currentFilter = "all";
@@ -44,6 +44,12 @@ sortSelect.addEventListener("change", () => {
   else if (val.includes("A→Z")) sortOrder = "az";
   else if (val.includes("Z→A")) sortOrder = "za";
 
+  renderAll();
+});
+
+clearBtn.addEventListener("click", () => {
+  tasks = tasks.filter((t) => !t.done);
+  saveTasks();
   renderAll();
 });
 
