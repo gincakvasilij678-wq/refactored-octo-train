@@ -10,7 +10,7 @@ const tabButtons = document.querySelectorAll(".tabs__item");
 const clearBtn = document.querySelector(".footer-controls__clear");
 const form = document.querySelector(".form-add");
 
-/* let localTasks = localStorage.getItem('tasks') */
+
 let tasks = JSON.parse(localStorage.getItem("tasks")) || {};
 
 let sortOrder = "new";
