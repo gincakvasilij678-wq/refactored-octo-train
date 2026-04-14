@@ -328,8 +328,7 @@ if (hours >= 0 && hours < 6) {
 
 console.log(`Сегодня ${dayName}, сейчас ${timeOfDay}`); */
 
-
-const tasks = [
+/* const tasks = [
   { id: 1, text: 'Обсудить детали нового проекта на встрече' },
   { id: 2, text: 'Проверить отчёты за прошлый квартал' },
   { id: 3, text: 'Подготовить презентацию для проекта X' },
@@ -342,4 +341,70 @@ const filteredTasks = tasks.filter(task =>
   task.text.toLowerCase().includes('проект')
 );
 
-console.log(filteredTasks);
+console.log(filteredTasks); */
+
+/* const comments = [
+  { user: ' Alice ', text: ' Hello everyone! ' },
+  { user: 'BOB', text: '<b>Nice post</b>' },
+  { user: '   ', text: 'I am invisible user' },  // пустой user → игнор
+  { user: 'Charlie', text: '   ' },  // пустой текст → игнор
+  { user: null, text: 'Hi!' }, // user невалидный → игнор
+  { user: 'dave', text: '<script>alert(1)</script>' }, // XSS попытка
+  { user: 'Eve', text: '   Good job!   ' },
+  { user: 'ALICE', text: 'Second comment' } // тот же пользователь в другом регистре
+];
+
+
+
+function fomatComments(comments){
+    const results = []
+
+    for (let comm of comments){
+
+        const user = String(comm.user || "").trim().toLowerCase()
+        const text = String(comm.text || "").trim().toLowerCase()
+
+        if (!text || !user) cotinue;
+
+        const safeText = escapeHtml(text);
+
+        results.push(user + ": " + safeText)
+    }
+    return results;
+}
+console.log(comments) */
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, "&apm")
+    .replace(/</g, "&lt")
+    .replace(/>/g, "&gt");
+}
+
+const input = " JS, react, <script>, node ";
+let tags = input.split(',')
+  .map(t => t.trim().toLowerCase())
+  
+
+tags = [...new Set(tags)];
+
+let html = '<ul>\n';
+tags.forEach(tag => {
+  html += `  <li>${escapeHtml(tag)}</li>\n`;
+});
+html += '</ul>';
+
+console.log(html);
+
+function normalizeWords(str) {
+    const clean = String(str || "").trim();
+
+    if (clean === "") return "";
+
+    const words = clean.split(/\s+/);
+    const normalized = words.map(word => 
+        word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+    );
+
+    return normalized.join(" ");
+}
