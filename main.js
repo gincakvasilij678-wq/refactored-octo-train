@@ -11,7 +11,7 @@ const clearBtn = document.querySelector(".footer-controls__clear");
 const form = document.querySelector(".form-add");
 
 
-let tasks = JSON.parse(localStorage.getItem("tasks")) || {};
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
 let sortOrder = "new";
 let currentFilter = "all";
@@ -160,30 +160,10 @@ function renderTask(task) {
     renderAll();
   });
   return item;
-  /* container.append(item);
-  }); */
+ 
 }
 
-// const task1 = renderTask({
-//   text: "Погулять с собакой",
-//   date: "Завтра 17:00",
-// });
-// const task2 = renderTask({
-//   text: "Прочитать книгу",
-//   date: "Завтра 17:00",
-// });
 
-// container.append(task1, task2)
-
-/* const tasks = [
-  { text: "Прочитать книгу", date: "Завтра 17:00", done: false },
-  { text: "Сделать уроки", date: "Вчера 18:30", done: true },
-  { text: "Погулять с собакой", date: "Сегодня 18:00", done: false },
-  { text: "Купить молоко", date: "Сегодня 12:00", done: true },
-  { text: "Посмотреть фильм", date: "Завтра 17:00", done: false },
-  
-  
-]; */
 
 function renderAll() {
   document.querySelectorAll(".task").forEach((t) => t.remove());

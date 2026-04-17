@@ -6,6 +6,9 @@ let boardData = JSON.parse(localStorage.getItem("kanbanData")) || {
   done: [],
 };
 
+let draggedTask = null;
+let sourceStatus = null;
+
 document.querySelectorAll(".column__btn").forEach((btn) => {
   btn.addEventListener("click", () => {
     const column = btn.closest(".column");
@@ -41,7 +44,9 @@ function renderBoard() {
     boardData[status].forEach((task, index) => {
       const el = document.createElement("div");
       el.className = "column__task task-kanban";
-
+      el.dataset.index = index;
+      el.draggable = true;
+      console.log(task)
       el.innerHTML = `
     <h3 class="task-kanban__title">${escapeHtml(task.title)}</h3>
     ${task.descr ? `<p class="task-kanban__descr">${task.descr}</p>` : ""}
@@ -51,11 +56,53 @@ function renderBoard() {
       <span class="task-kanban__deadline">${task.deadline}</span>
     </div>
   `;
+      addDragEvents(el);
       taskList.appendChild(el);
     });
     updateCount(column);
   });
   localStorage.setItem("kanbanData", JSON.stringify(boardData));
+}
+
+function addDragEvents(taskEl) {
+  taskEl.addEventListener("dragstart", (event) => {
+    draggedTask = taskEl;
+    sourceStatus = taskEl.closest(".column").dataset.status;
+    taskEl.classList.add("dragging");
+    event.dataTransfer.effectAllowed = "move";
+  });
+
+  taskEl.addEventListener("dragend", () => {
+    if (draggedTask) draggedTask.classList.remove("dragging");
+    draggedTask = null;
+  });
+
+  columns.forEach((column) => {
+    const taskList = column.querySelector(".column__tasks");
+    taskList.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      column.classList.add("drag-over");
+    });
+
+    taskList.addEventListener("dragleave", () => {
+      column.classList.remove("drag-over");
+    });
+
+    taskList.addEventListener("drop", (e) => {
+      e.preventDefault();
+      column.classList.remove("drag-over");
+
+      const targerStatus = column.dataset.status;
+
+      if (!draggedTask) return;
+
+      const index = +draggedTask.dataset.index;
+      const movedTask = boardData[sourceStatus][index];
+      boardData[sourceStatus].splice(index, 1);
+      boardData[targerStatus].push(movedTask);
+      renderBoard();
+    });
+  });
 }
 
 function updateCount(column) {
@@ -83,7 +130,7 @@ function priorityLabel(level) {
       : "Средний приоритет";
 }
 
-function escapenHtml(str) {
+function escapeHtml(str) {
   return String(str)
     .replace(/&/g, "&apm")
     .replace(/</g, "&lt")
